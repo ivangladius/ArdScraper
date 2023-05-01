@@ -1,3 +1,6 @@
+import json
+
+import ciso8601
 
 
 class Item:
@@ -16,14 +19,15 @@ class Item:
                  category,
                  available_from,
                  available_to,
-                 is_child_content
+                 is_child_friendly
                  ):
         self.site_url = site_url
         self.video_url = video_url
         self.video_size = video_size
         self.thumb_nail = thumb_nail
 
-        self.created = created
+        # convert to MariaDB TIMESTAMP
+        self.created = ciso8601.parse_datetime_as_naive(created)
 
         self.institution = institution
         self.institution_logo = institution_logo
@@ -34,10 +38,13 @@ class Item:
         self.duration = duration
         self.category = category
 
-        self.available_from = available_from
-        self.available_to = available_to
+        # convert to MariaDB TIMESTAMP
+        self.available_from = ciso8601.parse_datetime_as_naive(available_from)
+        self.available_to = ciso8601.parse_datetime_as_naive(available_to)
 
-        self.isChildContent = is_child_content
+        # convert to Bool for mariaDB
+        # convert to Bool (integer 1 or 0)
+        self.is_child_friendly = int(is_child_friendly) # json.loads(is_child_content.lower())
 
     def __str__(self):
         return "###################\n" \
@@ -55,5 +62,5 @@ class Item:
                f"category {self.category}\n" \
                f"available_from: {self.available_from}\n" \
                f"available_to: {self.available_to}\n" \
-               f"is_child_content: {self.isChildContent}\n" \
+               f"is_child_content: {self.is_child_friendly}\n" \
                "###################\n"
