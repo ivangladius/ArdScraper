@@ -6,12 +6,13 @@ import requests as requests
 from bs4 import BeautifulSoup as soup
 
 import json
-from items import Item
 
-from ArdDatabase import database
+from ArdDatabase.database import Database
+from items import Item
 
 sys.path.append(os.path.join(os.path.dirname(__file__),
                              '~/', 'p'))
+
 
 def is_video_still_watchable(time_stamp):
     host_time = datetime.now().strftime("%Y-%m-%dT%H:%M:%SZ")
@@ -48,6 +49,8 @@ class Scraper:
 
     # parse one whole json page
     def initialize(self):
+        db = Database().instance()
+        db.create_video_table()
 
         files = next(os.walk("json"))[2]  # directory is your directory path as string
         file_read_path = 'json_file{}.json'
