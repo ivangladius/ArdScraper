@@ -1,0 +1,3 @@
+[submodule "ArdDatabase"]
+	path = ArdDatabase
+	url = https://github.com/ivangladius/ArdDatabase
