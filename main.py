@@ -8,6 +8,8 @@ import sys
 from items import *
 from scraper import *
 
+json_path = "json"
+test_path = "test_dir"
 
 def usage():
     print("""
@@ -28,7 +30,15 @@ class OptionMenu:
         args = parser.parse_args(sys.argv[1:])
 
         if args.fetch:
-            subprocess.check_output("mkdir json".split())
+            json_path_exist = os.path.exists(json_path)
+            test_path_exist = os.path.exists(test_path)
+            if not json_path_exist:
+                os.makedirs(json_path)
+                print("created directory json")
+            if not test_path_exist:
+                os.makedirs(test_path)
+                print("created directory test")
+
             self.fetch_json_pages()
 
         elif args.init:
@@ -46,7 +56,9 @@ class OptionMenu:
 
         url_to_fetch = 'https://storage.googleapis.com/fra-uas-mobappex-ss23-amin/ard-feed-{}.json'
         for p in range(int(pages)):
-            req = requests.get(url_to_fetch.format(p))
+            fetch_url = url_to_fetch.format(p)
+            print(f"fetching: {fetch_url}")
+            req = requests.get(fetch_url)
             with open(f"json/json_file{p}.json", "w") as fd:
                 fd.write(req.text)
 
