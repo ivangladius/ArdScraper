@@ -44,7 +44,7 @@ class Item:
 
         # convert to Bool for mariaDB
         # convert to Bool (integer 1 or 0)
-        self.is_child_friendly = int(is_child_friendly) # json.loads(is_child_content.lower())
+        self.is_child_friendly = int(is_child_friendly)  # json.loads(is_child_content.lower())
 
     def __str__(self):
         return "###################\n" \

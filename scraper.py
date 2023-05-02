@@ -129,7 +129,7 @@ class Scraper:
                             data['items'][x]['availableTo'],  # available_to
                             data['items'][x]['isChildContent']  # is_child_content
                         )
-                        db.video_add(item)
+                        db.insert_video(item)
 
     def print(self):
         for item in self.data_items:
