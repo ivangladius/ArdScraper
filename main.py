@@ -86,13 +86,16 @@ def show_menu():
     parser = argparse.ArgumentParser()
     parser.add_argument('--fetch', action='store_true')
     parser.add_argument('--init', action='store_true')
+    parser.add_argument('--reset', action='store_true')
     args = parser.parse_args(sys.argv[1:])
 
     if args.fetch:
         fetch_json_pages()
-
     elif args.init:
         write_items()
+    elif args.reset:
+        db = Database().instance()
+        db.init_tables()
     else:
         usage()
         sys.exit(1)
