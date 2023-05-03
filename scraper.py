@@ -46,7 +46,6 @@ def parse_mp4(count, url):
 
 def write_items():
     db = Database().instance()
-    #db.create_video_table()
 
     if os.path.exists("json"):
         files = next(os.walk("json"))[2]  # directory is your directory path as string
