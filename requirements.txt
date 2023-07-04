@@ -1,0 +1,7 @@
+requests
+ciso8601
+bs4
+mariadb
+lxml
+fastapi
+uvicorn[standard]

@@ -57,6 +57,8 @@ def write_items():
                 for x in range(int(data['pageItemCount'])):
                     item = parse_item(data, x)
                     if item is not None:
+#                        db.get_random_videos(20)
+#                        print(item.item_to_list(), "\n")
                         db.insert_video(item)
     else:
         return
@@ -65,11 +67,10 @@ def write_items():
 def parse_item(data, index):
     url = data['items'][index]['links']['web']  # url
     if is_video_still_watchable(data['items'][index]['availableTo']):
-        # video_url, video_size = parse_mp4(index, url)
-        video_url, video_size = "", 0
+        video_url, video_size = parse_mp4(index, url)
         item = Item(
             url,
-            "",  # FIXME
+            video_url,  # FIXME
             video_size,
             data['items'][index]['images'][0]['url'],  # thumb_nail
             data['items'][index]['created'],  # creation date

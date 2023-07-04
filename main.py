@@ -5,6 +5,7 @@ import subprocess
 import requests as requests
 import sys
 
+from ArdDatabase.database import Database
 # my libs
 from items import *
 from scraper import *
@@ -20,6 +21,7 @@ def usage():
      Usage: ./main.py [--option]
             ./main.py --fetch -> fetch all json files
             ./main.py --init  -> initialize database with content
+            ./main.py --reset -> reset & init tables
             """)
 
 
@@ -72,7 +74,7 @@ def fetch_json_pages():
         store_path = fetch_path
 
     url_to_fetch = 'https://storage.googleapis.com/fra-uas-mobappex-ss23-amin/ard-feed-{}.json'
-    for p in range(int(1)):
+    for p in range(int(pages)):
         fetch_url = url_to_fetch.format(p)
         print(f"fetching: {fetch_url}")
         req = requests.get(fetch_url)
