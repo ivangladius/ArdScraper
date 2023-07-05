@@ -8,8 +8,8 @@ from bs4 import BeautifulSoup as soup
 
 import json
 
-from ArdDatabase.database import Database
-from items import Item
+from ScrapeArdDatabase.database import Database
+from ScrapeArdDatabase.items import Item
 
 
 def is_video_still_watchable(time_stamp):
