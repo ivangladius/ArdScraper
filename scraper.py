@@ -40,8 +40,7 @@ def parse_mp4(count, url):
                     return result, content_len
             except (IndexError, TypeError):
                 return None, None
-    else:
-        return None, None
+    return None, None
 
 
 def write_items():
