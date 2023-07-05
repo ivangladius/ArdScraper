@@ -39,9 +39,9 @@ def parse_mp4(count, url):
                             'url']
                     return result, content_len
             except (IndexError, TypeError):
-                return "", 0
+                return None, None
     else:
-        return "", 0
+        return None, None
 
 
 def write_items():
@@ -68,24 +68,27 @@ def parse_item(data, index):
     url = data['items'][index]['links']['web']  # url
     if is_video_still_watchable(data['items'][index]['availableTo']):
         video_url, video_size = parse_mp4(index, url)
-        item = Item(
-            url,
-            video_url,  # FIXME
-            video_size,
-            data['items'][index]['images'][0]['url'],  # thumb_nail
-            data['items'][index]['created'],  # creation date
-            data['items'][index]['publisher']['institution']['title'],  # institution
-            data['items'][index]['publisher']['institution']['imageURL'],  # institution_logo
-            data['items'][index]['publisher']['title'],  # publisher
-            data['items'][index]['show']['title'],  # video title
-            data['items'][index]['keywords'],  # keywords
-            data['items'][index]['durationSeconds'],  # duration
-            data['items'][index]['genreCategory']['title'],  # Category
-            data['items'][index]['availableFrom'],  # available_from
-            data['items'][index]['availableTo'],  # available_to
-            data['items'][index]['isChildContent']  # is_child_content
-        )
-        return item
+        if video_url is not None:
+            item = Item(
+                url,
+                video_url,  # FIXME
+                video_size,
+                data['items'][index]['images'][0]['url'],  # thumb_nail
+                data['items'][index]['created'],  # creation date
+                data['items'][index]['publisher']['institution']['title'],  # institution
+                data['items'][index]['publisher']['institution']['imageURL'],  # institution_logo
+                data['items'][index]['publisher']['title'],  # publisher
+                data['items'][index]['show']['title'],  # video title
+                data['items'][index]['keywords'],  # keywords
+                data['items'][index]['durationSeconds'],  # duration
+                data['items'][index]['genreCategory']['title'],  # Category
+                data['items'][index]['availableFrom'],  # available_from
+                data['items'][index]['availableTo'],  # available_to
+                data['items'][index]['isChildContent']  # is_child_content
+            )
+            return item
+    return None
+        
 
 
 # updates database after fetch
