@@ -1,3 +1,6 @@
 [submodule "ArdDatabase"]
 	path = ArdDatabase
 	url = https://github.com/ivangladius/ArdDatabase
+[submodule "ScrapeArdDatabase"]
+	path = ScrapeArdDatabase
+	url = https://github.com/ivangladius/ArdDatabase
