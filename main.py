@@ -6,7 +6,6 @@ import requests as requests
 import sys
 
 from ScrapeArdDatabase.database import Database
-from ScrapeArdDatabase.items import Item
 # my libs
 from scraper import *
 
