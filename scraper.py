@@ -3,7 +3,6 @@ import sys
 from datetime import datetime
 
 import requests
-import requests
 from bs4 import BeautifulSoup as soup
 
 import json
