@@ -7,7 +7,7 @@ from bs4 import BeautifulSoup as soup
 
 import json
 
-from ScrapeArdDatabase.database import Database
+from ArdDatabase.database import Database
 from items import Item
 
 
@@ -55,17 +55,30 @@ def write_items():
                 for x in range(int(data['pageItemCount'])):
                     item = parse_item(data, x)
                     if item is not None:
-#                        db.get_random_videos(20)
-#                        print(item.item_to_list(), "\n")
                         db.insert_video(item)
     else:
         return
+
+def parse_subcategory(data, index):
+    try:
+        subcategory = data['items'][index]['subgenreCategories'][0]['title'],  # Subcategory
+        print(subcategory)
+        return subcategory
+    except (IndexError, TypeError):
+        print("EXPECT")
+        return None
+
+        
 
 
 def parse_item(data, index):
     url = data['items'][index]['links']['web']  # url
     if is_video_still_watchable(data['items'][index]['availableTo']):
         video_url, video_size = parse_mp4(index, url)
+        subcategory = parse_subcategory(data, index)
+        if subcategory is not None:
+            subcategory = subcategory[0]
+        print("Sub: ", subcategory)
         if video_url is not None:
             item = Item(
                 url,
@@ -80,6 +93,7 @@ def parse_item(data, index):
                 data['items'][index]['keywords'],  # keywords
                 data['items'][index]['durationSeconds'],  # duration
                 data['items'][index]['genreCategory']['title'],  # Category
+                subcategory,
                 data['items'][index]['availableFrom'],  # available_from
                 data['items'][index]['availableTo'],  # available_to
                 data['items'][index]['isChildContent']  # is_child_content

@@ -5,7 +5,7 @@ import subprocess
 import requests as requests
 import sys
 
-from ScrapeArdDatabase.database import Database
+from ArdDatabase.database import Database
 # my libs
 from scraper import *
 
